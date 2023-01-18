@@ -1,6 +1,7 @@
+from config import API_KEY
 from todoist_api_python.api import TodoistAPI
 
-api = TodoistAPI(secrets.TODOIST_API_TOKEN)
+api = TodoistAPI(API_KEY)
 
 try:
     projects = api.get_projects()
