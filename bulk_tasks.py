@@ -77,3 +77,15 @@ def get_dates(**kwargs):
         date+=timedelta
 
     return dates
+
+def delete_labels(exclude):
+    all_labels = api.get_labels()
+    exclude = [x.lower() for x in exclude]
+
+    for l in all_labels:
+        if l.name.lower() not in exclude:
+            try:
+                is_success = api.delete_label(label_id=l.id)
+                print(is_success)
+            except Exception as e:
+                print(e)
