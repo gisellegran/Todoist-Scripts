@@ -37,20 +37,24 @@ def bulk_numbered_tasks(**kwargs):
         dates = get_dates(**kwargs)
     else:
         dates = kwargs['dates']
+
+    if 'time' not in kwargs:
+        time = ''
+    else:
+        time = kwargs['time'].strftime("%H:%M")
         
     try:
         
-        time = kwargs['time']
         task = kwargs['task']
         task_template = kwargs['task_template']
         
         i = 1
         for date in dates :
-                task_template['due_string'] = date
+                task_template['due_string'] = date.strftime("%Y-%m-%d")+" "+time
                 task_template['content'] = task + " " + str(i)
-                task_template['due_string'] = date.strftime("%m-%d-%y")+" "+time.strftime("%H:%M")
 
                 api.add_task(**task_template)
+               # print(task_template)
                 i+=1
                     
             
